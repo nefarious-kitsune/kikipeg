@@ -1,10 +1,10 @@
-/browser/
-/examples/*.js
-/examples/*.php
-/node_modules/
-/coverage/
-/doc/
-/vendor/
-/.idea
-/.phpunit.result.cache
-/composer.lock
+# Logs
+logs
+*.log
+*.error
+
+# Dependency directories
+node_modules/
+
+# Tests
+tests/

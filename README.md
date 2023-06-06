@@ -1,8 +1,10 @@
-WikiPEG
+KikiPeg
 ======
 
-WikiPEG is a recursive descent parser generator for Node.js, intended mostly
-to support Parsoid's complex needs. It is a fork of PEG.js with a new backend.
+KikiPEG is a recursive descent parser generator for Node.js.
+
+KikiPeg is a derivative of WikiPeg by Wikimedia,
+which is a derivative of PEG.js by David Majda.
 
 Features
 --------
@@ -13,39 +15,40 @@ Features
   * Based on [parsing expression grammar](http://en.wikipedia.org/wiki/Parsing_expression_grammar)
     formalism — more powerful than traditional LL(*k*) and LR(*k*) parsers
 
+<!--
 Installation
 ------------
 
 ### Node.js
 
-To use the `wikipeg` command, install WikiPEG globally:
+To use the `kikipeg` command, install KikiPeg globally:
 
-    $ npm install -g wikipeg
+    $ npm install -g kikipeg
 
-To use the JavaScript API, install WikiPEG locally:
+To use the JavaScript API, install KikiPeg locally:
 
-    $ npm install wikipeg
+    $ npm install kikipeg
 
-If you need both the `wikipeg` command and the JavaScript API, install WikiPEG both
+If you need both the `kikipeg` command and the JavaScript API, install KikiPeg both
 ways.
 
 Generating a Parser
 -------------------
 
-WikiPEG generates parser from a grammar that describes expected input and can
+KikiPeg generates parser from a grammar that describes expected input and can
 specify what the parser returns (using semantic actions on matched parts of the
 input). Generated parser itself is a JavaScript object with a simple API.
 
 ### Command Line
 
-To generate a parser from your grammar, use the `wikipeg` command:
+To generate a parser from your grammar, use the `kikipeg` command:
 
-    $ wikipeg arithmetics.pegjs
+    $ kikipeg arithmetics.pegjs
 
 This writes parser source code into a file with the same name as the grammar
 file but with “.js” extension. You can also specify the output file explicitly:
 
-    $ wikipeg arithmetics.pegjs arithmetics-parser.js
+    $ kikipeg arithmetics.pegjs arithmetics-parser.js
 
 If you omit both input and output file, standard input and output are used.
 
@@ -60,7 +63,7 @@ You can tweak the generated parser with several options:
     time in pathological cases but making the parser slower
   * `--allowed-start-rules` — comma-separated list of rules the parser will be
     allowed to start parsing from (default: the first rule in the grammar)
-  * `--plugin` — makes WikiPEG use a specified plugin (can be specified multiple
+  * `--plugin` — makes KikiPeg use a specified plugin (can be specified multiple
     times)
   * `--extra-options` — additional options (in JSON format) to pass to
     `PEG.buildParser`
@@ -72,11 +75,11 @@ You can tweak the generated parser with several options:
 
 ### JavaScript API
 
-In Node.js, require the WikiPEG parser generator module:
+In Node.js, require the KikiPeg parser generator module:
 
-    var PEG = require("wikipeg");
+    var PEG = require("kikipeg");
 
-In browser, include the WikiPEG library in your web page or application using the
+In browser, include the KikiPeg library in your web page or application using the
 `<script>` tag. The API will be available in the `PEG` global object.
 
 To generate a parser, call the `PEG.buildParser` method and pass your grammar as
@@ -419,10 +422,12 @@ Try to match the first expression, if it does not succeed, try the second one,
 etc. Return the match result of the first successfully matched expression. If no
 expression matches, consider the match failed.
 
+-->
+
 Rule parameter syntax
 ---------------------
 
-WikiPEG supports passing parameters to rules. This is an extension compared to
+KikiPeg supports passing parameters to rules. This is an extension compared to
 PEG.js.
 
 All parameters referenced in the grammar have an initial value and can
@@ -497,12 +502,3 @@ Requirements
 -------------
 
 * Node.js 6 or later
-
-Development
------------
-
-Development occurs in the "wikipeg" project in [Wikimedia's Gerrit](https://www.mediawiki.org/wiki/Gerrit).
-
-Bugs should be reported to [Wikimedia's Phabricator](https://phabricator.wikimedia.org/)
-
-WikiPEG is a derivative of PEG.js by David Majda.
