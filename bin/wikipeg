@@ -29,9 +29,8 @@ If both <input_file> and <output_file> are omitted, standard input and output
 are used.
 
 Options:
-  -e, --export-var <variable>        name of the variable where the parser
-                                     object will be stored (default:
-                                     "module.exports")
+  -e, --format <format>              format of the generated parser
+                                     (cjs or esm)
       --php                          force PHP mode regardless of extension
       --class-name <name>            specify generated PHP class name
       --cache                        make generated parser cache results
@@ -66,7 +65,7 @@ function exitFailure() {
 }
 
 function abort(message) {
-  util.error(message);
+  console.error(message);
   exitFailure();
 }
 
@@ -124,6 +123,7 @@ function readStream(inputStream, callback) {
 /* This makes the generated parser a CommonJS module by default. */
 var exportVar = "module.exports";
 var options = {
+  format:   'cjs',
   cache:    false,
   output:   "source",
   trace:    false,
@@ -135,8 +135,12 @@ var options = {
 while (args.length > 0 && isOption(args[0])) {
   switch (args[0]) {
     case "-e":
-    case "--export-var":
-      exportVar = args[0];
+    case "--format":
+      nextArg();
+      if (args.length === 0) {
+        abort("Missing parameter of the --format option.");
+      }
+      options.format = args[0];
       break;
 
     case "--php":
@@ -312,11 +316,8 @@ readStream(inputStream, function(input) {
     }
   }
 
-  if (options.language === 'javascript') {
-    outputStream.write(exportVar !== "" ? `${exportVar} = ${source}\n` : `${source}\n`);
-  } else {
-    outputStream.write(source + "\n");
-  }
+  outputStream.write(source + "\n");
+
   if (outputStream !== process.stdout) {
     outputStream.end();
   }
